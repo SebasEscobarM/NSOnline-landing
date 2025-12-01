@@ -214,6 +214,34 @@
     const waveAmplitude = 25; // Altura de la onda desde la base
     const svgHeight = baseY + 20; // Altura del SVG ajustada al patrón (baseY + pequeño margen)
 
+    // Precarga de imágenes antes de inicializar animaciones
+    useEffect(() => {
+      const images = [
+        '/switchLogo.png',
+        '/Clasiccs.avif',
+        '/Clasiccs.svg',
+        '/music.svg',
+        '/GameChat.svg',
+        '/Nintendo.png',
+        '/nube.png',
+        '/UpArrow.svg',
+        '/DownArrow.svg',
+        '/T1.svg',
+        '/T2.svg',
+        '/T3.svg',
+        '/T4.svg',
+        '/T5.svg',
+        '/T6.svg',
+        '/T7.svg',
+      ];
+
+      // Precargar todas las imágenes
+      images.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+      });
+    }, []);
+
     useEffect(() => {
       if (!containerRef.current || !seccion2Ref.current || !gamechatRef.current || !cBoxRef.current || !nintendoRef.current || !nubeRef.current || !upArrowRef.current || !downArrowRef.current || !assetContainerRef.current || !classiccsRef.current || !classiccsSvgRef.current || !musicContainerRef.current || !musicRef.current || !t1Ref.current || !t2Ref.current || !t3Ref.current || !t4Ref.current || !t5Ref.current || !t6Ref.current || !t7Ref.current || !finalSectionRef.current) return;
     
