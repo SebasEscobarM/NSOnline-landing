@@ -132,6 +132,8 @@
   const t6Ref = useRef<HTMLImageElement>(null);
   const t7Ref = useRef<HTMLImageElement>(null);
   const finalSectionRef = useRef<HTMLDivElement>(null);
+  const nintendoTextRef = useRef<HTMLDivElement>(null);
+  const classicsTextRef = useRef<HTMLDivElement>(null);
   const [windowWidth, setWindowWidth] = useState(1200);
   
   // Sistema de coordinación cíclica para los tiles
@@ -243,7 +245,7 @@
     }, []);
 
     useEffect(() => {
-      if (!containerRef.current || !seccion2Ref.current || !gamechatRef.current || !cBoxRef.current || !nintendoRef.current || !nubeRef.current || !upArrowRef.current || !downArrowRef.current || !assetContainerRef.current || !classiccsRef.current || !classiccsSvgRef.current || !musicContainerRef.current || !musicRef.current || !t1Ref.current || !t2Ref.current || !t3Ref.current || !t4Ref.current || !t5Ref.current || !t6Ref.current || !t7Ref.current || !finalSectionRef.current) return;
+      if (!containerRef.current || !seccion2Ref.current || !gamechatRef.current || !cBoxRef.current || !nintendoRef.current || !nubeRef.current || !upArrowRef.current || !downArrowRef.current || !assetContainerRef.current || !classiccsRef.current || !classiccsSvgRef.current || !musicContainerRef.current || !musicRef.current || !t1Ref.current || !t2Ref.current || !t3Ref.current || !t4Ref.current || !t5Ref.current || !t6Ref.current || !t7Ref.current || !finalSectionRef.current || !nintendoTextRef.current || !classicsTextRef.current) return;
     
       const container = containerRef.current;
       const seccion2 = seccion2Ref.current;
@@ -259,6 +261,8 @@
       const musicContainer = musicContainerRef.current;
       const music = musicRef.current;
       const finalSection = finalSectionRef.current;
+      const nintendoText = nintendoTextRef.current;
+      const classicsText = classicsTextRef.current;
       const scrollDistance = window.innerHeight;
     
       // Configurar estado inicial del recuadro, Nintendo, nube y flechas
@@ -267,6 +271,10 @@
       gsap.set(nube, { opacity: 0, scale: 0.8 }); // Empieza invisible y un poco más pequeña
       gsap.set(upArrow, { opacity: 0, y: 30 }); // Empieza invisible y un poco más abajo
       gsap.set(downArrow, { opacity: 0, y: -30 }); // Empieza invisible y un poco más arriba
+      
+      // Configurar estado inicial de los textos: empiezan invisibles
+      gsap.set(nintendoText, { opacity: 0 });
+      gsap.set(classicsText, { opacity: 0 });
       
       // Configurar estado inicial del asset: empieza abajo del contenedor
       gsap.set(classiccs, { y: window.innerHeight }); // Empieza debajo del contenedor
@@ -290,8 +298,7 @@
           pin: true,
           scrub: 1,
           invalidateOnRefresh: true,
-          anticipatePin: 1,
-          markers: true,
+          anticipatePin: 1
         },
       });
     
@@ -470,6 +477,24 @@
           ease: "power2.in",
         },
         "-=0.6" // Empieza al mismo tiempo que aparece el SVG
+      )
+      .to(
+        nintendoText,
+        {
+          opacity: 1, // Aparecer texto "Nintendo"
+          duration: 0.6,
+          ease: "power2.out",
+        },
+        "-=0.6" // Empieza al mismo tiempo que desaparecen los otros elementos
+      )
+      .to(
+        classicsText,
+        {
+          opacity: 1, // Aparecer texto "Classics"
+          duration: 0.6,
+          ease: "power2.out",
+        },
+        "-=0.6" // Empieza al mismo tiempo que desaparecen los otros elementos
       );
 
       // 9) Reducir el SVG a 0.5 y girar
@@ -698,6 +723,34 @@
               }}
             />
           </div>
+        </div>
+
+        {/* Textos "Nintendo" y "Classics" a los lados */}
+        <div
+          ref={nintendoTextRef}
+          className="absolute top-1/2 left-8 transform -translate-y-1/2 pointer-events-none z-45"
+          style={{
+            top: '20%',
+            left: '15%',
+            textOrientation: 'mixed',
+          }}
+        >
+          <span className="text-8xl md:text-9xl font-bold text-[#e60012] opacity-70 select-none">
+            Nintendo
+          </span>
+        </div>
+        <div
+          ref={classicsTextRef}
+          className="absolute top-1/2 right-8 transform -translate-y-1/2 pointer-events-none z-45"
+          style={{
+            top: '78%',
+            right: '15%',
+            textOrientation: 'mixed',
+          }}
+        >
+          <span className="text-8xl md:text-9xl font-bold text-[#e60012] opacity-70 select-none">
+            Classics
+          </span>
         </div>
 
           <div className="absolute bottom-0 left-0 w-full h-1/2 bg-black">
